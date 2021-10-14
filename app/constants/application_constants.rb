@@ -1,4 +1,4 @@
 module ToyRobot
   VALID_COMMANDS = %w(PLACE MOVE REPORT LEFT RIGHT).freeze
-  VALID_CARDINALS = %w(NORTH WEST SOUTH EAST).freeze
+  CARDINALS = { south: :SOUTH, west: :WEST, north: :NORTH, east: :EAST }.freeze
 end
