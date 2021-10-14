@@ -1,13 +1,12 @@
-require 'lib/table_top'
-require 'lib/robot'
+require_relative 'helpers/application_helper'
+require_relative 'helpers/validation_helper'
+require_relative 'lib/table_top'
+require_relative 'lib/robot'
+require_relative 'lib/robot_position'
 
-=begin
-todo: implement robust validations
-validate cardinal arguments
-=end
 module ToyRobot
   class Application
-    attr_accessor :command
+    attr_accessor :command, :args
 
     def initialize
       @tableTop = TableTop.new
@@ -17,23 +16,40 @@ module ToyRobot
     def run(command)
       parse_commands(command)
       if is_valid_command?
-        @toy_robot.send(@command, *@args)
+        output = @toy_robot.send(@command, *@args)
+        print("#{output}\n") if output.is_a?(String)
       end
-      #command.clear
+    end
+
+    def help_prompt
+      "USAGE:\n"\
+        "PLACE 0,0 WEST \t # places the robot south west \n"\
+        "MOVE \t\t # moves robot one step forward at current cardinal \n"\
+        "LEFT \t\t # rotates robot 90 degrees left\n"\
+        "RIGHT \t\t # rotates robot 90 degrees right \n"\
+        "REPORT \t\t # announces  X,Y and cardinal of the robot \n"\
+        "HELP \t\t # shows this prompt\n"\
+        "EXIT \t\t # exits program \n"
     end
 
     private
-      def parse_commands(command)
-        command = command.scan(/-?\w+/)
-        @command = command.first.downcase.to_sym if command.first
-        @args = command[1...]
-      end
+    def parse_commands(command)
+      parsed_command = ApplicationHelper::parse_commands(command)
+      @command = parsed_command[:command].downcase if parsed_command[:command]
+      @args = parsed_command[:args]
+    end
 
-      def permit_commands
+    def is_valid_command?
+      ValidationHelper::is_valid_command?(@command) && is_valid_params
+    end
 
+    def is_valid_params
+      method = @command.to_sym
+      is_valid = true
+      if ValidationHelper.respond_to?(method)
+        is_valid = ValidationHelper.send(method, *@args) rescue false
       end
-      def is_valid_command?
-        true
-      end
+      is_valid
+    end
   end
 end
