@@ -41,16 +41,12 @@ module ToyRobot
       end
     end
 
-    def is_valid_cardinal?(cardinal)
-      CARDINALS[cardinal] if CARDINALS[cardinal]
-    end
-
     def coords
       [@x_coord, @y_coord]
     end
 
     def to_s
-      "Position: #{coords.join(', ')} #{@cardinal_direction}"
+      "#{coords.join(',')} #{@cardinal_direction}"
     end
 
     def advance_position
