@@ -35,7 +35,7 @@ module ToyRobot
     private
     def parse_command(command)
       parsed_command = ApplicationHelper::parse_command(command)
-      @command = parsed_command[:command].downcase if parsed_command[:command]
+      @command = parsed_command[:command]
       @args = parsed_command[:args]
     end
 
@@ -44,7 +44,8 @@ module ToyRobot
     end
 
     def is_valid_params
-      method = @command.to_sym
+      return false unless @command
+      method = @command.downcase.to_sym
       is_valid = true
       if ValidationHelper.respond_to?(method)
         is_valid = ValidationHelper.send(method, *@args) rescue false
