@@ -14,7 +14,7 @@ module ToyRobot
     end
 
     def run(command)
-      parse_commands(command)
+      parse_command(command)
       if is_valid_command?
         output = @toy_robot.send(@command, *@args)
         print("#{output}\n") if output.is_a?(String)
@@ -33,8 +33,8 @@ module ToyRobot
     end
 
     private
-    def parse_commands(command)
-      parsed_command = ApplicationHelper::parse_commands(command)
+    def parse_command(command)
+      parsed_command = ApplicationHelper::parse_command(command)
       @command = parsed_command[:command].downcase if parsed_command[:command]
       @args = parsed_command[:args]
     end

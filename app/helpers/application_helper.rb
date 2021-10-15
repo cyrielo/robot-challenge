@@ -1,6 +1,6 @@
 module ToyRobot
   class ApplicationHelper
-    def self.parse_commands(command)
+    def self.parse_command(command)
       command = command.scan(/-?\w+/)
       action = command.first.upcase if command.first
       args = command[1...]
