@@ -16,7 +16,7 @@ module ToyRobot
     def run(command)
       parse_command(command)
       if is_valid_command?
-        output = @toy_robot.send(@command, *@args)
+        output = @toy_robot.send(@command, *@args) rescue false
         print("#{output}\n") if output.is_a?(String)
       end
     end
