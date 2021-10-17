@@ -2,16 +2,16 @@ require_relative '../helpers/validation_helper'
 
 module ToyRobot
   class TableTop
-    attr_reader :left_boundary, :right_boundary, :top_boundary, :bottom_boundary
-    def initialize(length = 5, breadth = 5)
-      @left_boundary = @bottom_boundary = 0
-      @right_boundary, @top_boundary = length - 1, breadth - 1
+    attr_reader :left, :right, :top, :bottom
+    def initialize(length = 5, height = 5)
+      @left = @bottom = 0
+      @right, @top = length - 1, height - 1
     end
 
     def is_within_bounds?(x_coord, y_coord)
       return false unless ValidationHelper::is_valid_integer?(x_coord, y_coord)
-      x_coord.between?(@left_boundary, @right_boundary) &&
-        y_coord.between?(@bottom_boundary, @top_boundary)
+      x_coord.between?(@left, @right) &&
+        y_coord.between?(@bottom, @top)
     end
   end
 end

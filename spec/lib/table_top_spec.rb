@@ -8,16 +8,15 @@ RSpec.describe ToyRobot::TableTop do
 
   context 'when instantiated' do
     it 'should have default boundaries' do
-      # :left_boundary, :right_boundary, :top_boundary, :bottom_boundary
-      expect(@table_top.respond_to?(:left_boundary)).to eql(true)
-      expect(@table_top.respond_to?(:right_boundary)).to eql(true)
-      expect(@table_top.respond_to?(:top_boundary)).to eql(true)
-      expect(@table_top.respond_to?(:bottom_boundary)).to eql(true)
+      expect(@table_top.respond_to?(:left)).to eql(true)
+      expect(@table_top.respond_to?(:right)).to eql(true)
+      expect(@table_top.respond_to?(:top)).to eql(true)
+      expect(@table_top.respond_to?(:bottom)).to eql(true)
 
-      expect(@table_top.left_boundary).to eql(0)
-      expect(@table_top.bottom_boundary).to eql(0)
-      expect(@table_top.right_boundary).to eql(4)
-      expect(@table_top.top_boundary).to eql(4)
+      expect(@table_top.left).to eql(0)
+      expect(@table_top.bottom).to eql(0)
+      expect(@table_top.right).to eql(4)
+      expect(@table_top.top).to eql(4)
     end
   end
 
