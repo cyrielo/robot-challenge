@@ -2,15 +2,15 @@ require_relative 'helpers/application_helper'
 require_relative 'helpers/validation_helper'
 require_relative 'lib/table_top'
 require_relative 'lib/robot'
-require_relative 'lib/robot_position'
+require_relative 'lib/position'
 
 module ToyRobot
   class Application
     attr_accessor :command, :args
 
     def initialize
-      @tableTop = TableTop.new
-      @toy_robot = Robot.new(@tableTop)
+      @table_top = TableTop.new
+      @toy_robot = Robot.new(@table_top)
     end
 
     def run(command)
@@ -32,7 +32,7 @@ module ToyRobot
         "EXIT \t\t # exits program \n"
     end
 
-    private
+    protected
     def parse_command(command)
       parsed_command = ApplicationHelper::parse_command(command)
       @command = parsed_command[:command]
