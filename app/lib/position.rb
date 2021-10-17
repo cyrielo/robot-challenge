@@ -1,6 +1,6 @@
 require_relative '../constants/application_constants'
 module ToyRobot
-  class RobotPosition
+  class Position
     attr_reader :x_coord, :y_coord, :cardinal_direction
 
     def initialize(x_coord, y_coord, cardinal)
@@ -64,7 +64,7 @@ module ToyRobot
       else
         # type code here
       end
-      { x_coord: x_coord, y_coord: y_coord }
+      Position.new(x_coord, y_coord, @cardinal_direction)
     end
   end
 end
