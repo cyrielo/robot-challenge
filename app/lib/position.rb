@@ -1,10 +1,11 @@
 require_relative '../constants/application_constants'
+
 module ToyRobot
   class Position
     attr_reader :x_coord, :y_coord, :cardinal_direction
 
-    def initialize(x_coord, y_coord, cardinal)
-      cardinal = cardinal.downcase.to_sym
+    def initialize(x_coord = nil, y_coord = nil, cardinal = nil)
+      cardinal = cardinal.downcase.to_sym if cardinal
       @cardinal_direction = CARDINALS[cardinal]
       @x_coord = x_coord
       @y_coord = y_coord
@@ -42,6 +43,7 @@ module ToyRobot
     end
 
     def coords
+      return [] if @x_coord.nil? || @y_coord.nil?
       [@x_coord, @y_coord]
     end
 
@@ -54,13 +56,13 @@ module ToyRobot
       y_coord = @y_coord
       case @cardinal_direction
       when CARDINALS[:north]
-        y_coord += 1
+        y_coord += 1 if y_coord
       when CARDINALS[:east]
-        x_coord += 1
+        x_coord += 1 if x_coord
       when CARDINALS[:west]
-        x_coord -= 1
+        x_coord -= 1 if x_coord
       when CARDINALS[:south]
-        y_coord -= 1
+        y_coord -= 1 if y_coord
       else
         # type code here
       end
