@@ -1,17 +1,15 @@
-require_relative '../../app/lib/robot'
-require_relative '../../app/lib/table_top'
+require_relative '../../app/factory/toy_robot'
 
 RSpec.describe ToyRobot::Robot do
   before(:example) do
-    @table_top = ToyRobot::TableTop.new(5, 3)
-    @robot = ToyRobot::Robot.new(@table_top)
+    @robot = ToyRobot::Factory.create_robot
   end
 
   context '#place' do
     it 'prevents placing robot on table with invalid positioning' do
       expect(@robot.table_top).eql?(@table_top)
       @robot.place(5, 5, 'west')
-      expect(@robot.position).to be_nil
+      expect(@robot.position.coords.empty?).to be true
     end
 
     it 'should place robot with valid coordinates and cardinal direction' do
@@ -41,6 +39,7 @@ RSpec.describe ToyRobot::Robot do
       @robot.move
       expect(@robot.position.y_coord).to eql(y + 2)
       expect(@robot.position.x_coord).to eql(x)
+      expect(@robot.position.cardinal_direction.downcase.to_s).to eql(cardinal)
     end
 
     it 'it should not advance robot position if beyond table-top boundary' do

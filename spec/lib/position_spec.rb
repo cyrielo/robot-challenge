@@ -1,5 +1,6 @@
 require_relative '../../app/lib/position'
 
+
 RSpec.describe ToyRobot::Position do
   before(:example) do
     @x_coord = 0
@@ -23,12 +24,22 @@ RSpec.describe ToyRobot::Position do
       expect(@position.cardinal_direction).to eql(:EAST)
     end
   end
+
   context '#to_s' do
     it 'should return a string announcing  X,Y and cardinal of the robot' do
       expect(@position.to_s
       ).to eql("#{@position.coords.join(',')} #{@cardinal}")
     end
+  end
 
+  context '#==' do
+    it 'should be able to compare different positions' do
+      pos1 = ToyRobot::Position.new(0, 2, 'EAST')
+      pos2 = ToyRobot::Position.new(0, 0, 'WEST')
+
+      expect(pos1.==(@position)).to be false
+      expect(pos2.==(@position)).to be true
+    end
   end
 
   context '#advance_position' do
@@ -45,3 +56,4 @@ RSpec.describe ToyRobot::Position do
     end
   end
 end
+
