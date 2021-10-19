@@ -1,18 +1,17 @@
-require_relative './position'
-
 module ToyRobot
   class Robot
     attr_reader :table_top, :position
 
-    def initialize(table_top)
+    def initialize(table_top: TableTop, position: Position)
       @table_top = table_top
+      @position = position
     end
 
     def place(x_coord, y_coord, cardinal)
       x_coord = x_coord.to_i
       y_coord = y_coord.to_i
       if can_place?(x_coord, y_coord)
-        @position = Position.new(x_coord, y_coord, cardinal)
+        @position = @position.class.new(x_coord, y_coord, cardinal)
       end
     end
 
@@ -36,7 +35,9 @@ module ToyRobot
 
     private
     def is_placed?
-      @position || false
+      coords = @position.coords
+      cardinal = @position.cardinal_direction
+      coords.empty? || cardinal.nil? ? false : true
     end
 
     def can_place?(x_coord, y_coord)

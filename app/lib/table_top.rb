@@ -3,6 +3,7 @@ require_relative '../helpers/validation_helper'
 module ToyRobot
   class TableTop
     attr_reader :left, :right, :top, :bottom
+
     def initialize(length = 5, height = 5)
       @left = @bottom = 0
       @right, @top = length - 1, height - 1
