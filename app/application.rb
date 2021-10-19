@@ -1,24 +1,21 @@
-require_relative 'helpers/application_helper'
 require_relative 'helpers/validation_helper'
-require_relative 'lib/table_top'
-require_relative 'lib/robot'
-require_relative 'lib/position'
 
 module ToyRobot
   class Application
     attr_accessor :command, :args
 
-    def initialize
-      @table_top = TableTop.new
-      @toy_robot = Robot.new(@table_top)
+    VERSION = "ToyRobot v1.0".freeze
+
+    def initialize(robot: Robot)
+      @toy_robot = robot
     end
 
     def run(command)
       parse_command(command)
       if is_valid_command?
         output = @toy_robot.send(@command, *@args) rescue false
-        print("#{output}\n") if output.is_a?(String)
       end
+      output
     end
 
     def help_prompt
@@ -32,11 +29,16 @@ module ToyRobot
         "EXIT \t\t # exits program \n"
     end
 
+    def version
+      VERSION
+    end
+
     protected
     def parse_command(command)
-      parsed_command = ApplicationHelper::parse_command(command)
-      @command = parsed_command[:command]
-      @args = parsed_command[:args]
+      return {} unless command.is_a?(String)
+      command = command.scan(/-?\w+/)
+      @command = command.first
+      @args = command[1...]
     end
 
     def is_valid_command?
