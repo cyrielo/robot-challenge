@@ -1,6 +1,6 @@
 module ToyRobot
   class Writer
-    attr_accessor :format, :path
+    attr_reader :format, :path
 
     def write_to_file(path)
       @path = path

@@ -66,7 +66,7 @@ module ToyRobot
       else
         # type code here
       end
-      Position.new(x_coord, y_coord, @cardinal_direction)
+      self.class.new(x_coord, y_coord, @cardinal_direction)
     end
 
     def ==(position)

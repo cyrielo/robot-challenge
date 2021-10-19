@@ -2,7 +2,6 @@ require_relative '../lib/robot'
 require_relative '../v2.0/lib/robot'
 require_relative '../lib/position'
 require_relative '../lib/table_top'
-
 require_relative '../v2.0/lib/obstacle'
 require_relative '../application'
 require_relative '../v2.0/application'
@@ -46,6 +45,4 @@ module ToyRobot
       ToyRobotV2::Application.new(robot: robot)
     end    
   end
-
-
 end
