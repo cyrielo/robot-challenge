@@ -67,8 +67,6 @@ RSpec.describe 'ToyRobot::ValidationHelper#place' do
       in_valid_place_param = '0,east'.scan(/-?\w+/)
       in_valid_place_param2 = '0,0,southern'.scan(/-?\w+/)
 
-      #print 'valid_place_params', valid_place_params
-
       valid = ToyRobot::ValidationHelper.place(*valid_place_params)
       expect(valid).to eql(true)
 
