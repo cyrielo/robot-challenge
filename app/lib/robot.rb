@@ -55,7 +55,7 @@ module ToyRobot
     def is_valid_place?(x_coord, y_coord, cardinal)
       valid_integers = Integer(x_coord) && Integer(y_coord) rescue false
       cardinal = cardinal.to_sym if cardinal.is_a?(String)
-      cardinal = cardinal.downcase if cardinal.is_a?(Symbol)
+      cardinal = cardinal.downcase if cardinal.respond_to?(:downcase)
       valid_integers && CARDINALS.has_key?(cardinal)
     end
   end
