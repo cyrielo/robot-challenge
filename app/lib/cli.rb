@@ -1,6 +1,6 @@
 require "readline"
-require_relative '../app/lib/io/reader'
-require_relative '../app/lib/io/writer'
+require_relative 'io/reader'
+require_relative 'io/writer'
 
 module ToyRobot
   class Cli
