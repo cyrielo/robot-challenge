@@ -1,0 +1,10 @@
+place 1,0,EAST
+move
+move
+report
+left
+move
+right
+report
+move
+report

@@ -1,0 +1,7 @@
+asdf
+place
+place $,2,east
+place b,c,west
+PLACE 0,0,0
+PLACE -1,3,south
+REPORT

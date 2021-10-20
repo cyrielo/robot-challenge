@@ -1,0 +1,15 @@
+spawn
+move
+obstruct
+move
+report
+right
+report
+move
+right
+report
+obstruct
+move
+right
+move
+report
