@@ -1,4 +1,4 @@
-require_relative 'helpers/validation_helper'
+require_relative 'constants/application_constants'
 
 module ToyRobot
   class Application
@@ -37,22 +37,13 @@ module ToyRobot
     def parse_command(command)
       return {} unless command.is_a?(String)
       command = command.scan(/-?\w+/)
-      @command = command.first
+      @command = command.first.downcase if command.first
       @args = command[1...]
     end
 
     def is_valid_command?
-      ValidationHelper::is_valid_command?(@command) && is_valid_params
-    end
-
-    def is_valid_params
-      return false unless @command
-      method = @command.downcase.to_sym
-      is_valid = true
-      if ValidationHelper.respond_to?(method)
-        is_valid = ValidationHelper.send(method, *@args) rescue false
-      end
-      is_valid
+      command = @command.upcase if @command.is_a?(String)
+      VALID_COMMANDS.include?(command)
     end
   end
 end

@@ -1,4 +1,3 @@
-require_relative '../helpers/validation_helper'
 
 module ToyRobot
   class TableTop
@@ -10,9 +9,13 @@ module ToyRobot
     end
 
     def is_within_bounds?(x_coord, y_coord)
-      return false unless ValidationHelper::is_valid_integer?(x_coord, y_coord)
-      x_coord.between?(@left, @right) &&
-        y_coord.between?(@bottom, @top)
+      begin
+        x_coord = Integer(x_coord)
+        y_coord = Integer(y_coord)
+        x_coord.between?(@left, @right) && y_coord.between?(@bottom, @top)
+      rescue
+        false
+      end
     end
   end
 end

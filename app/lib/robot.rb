@@ -1,3 +1,5 @@
+require_relative '../constants/application_constants'
+
 module ToyRobot
   class Robot
     attr_reader :table_top, :position
@@ -8,10 +10,12 @@ module ToyRobot
     end
 
     def place(x_coord, y_coord, cardinal)
-      x_coord = x_coord.to_i
-      y_coord = y_coord.to_i
-      if can_place?(x_coord, y_coord)
-        @position = @position.class.new(x_coord, y_coord, cardinal)
+      if is_valid_place?(x_coord, y_coord, cardinal)
+        x_coord = x_coord.to_i
+        y_coord = y_coord.to_i
+        if can_place?(x_coord, y_coord)
+          @position = @position.class.new(x_coord, y_coord, cardinal)
+        end
       end
     end
 
@@ -33,7 +37,7 @@ module ToyRobot
       rotate_cardinal(:right)
     end
 
-    private
+    protected
     def is_placed?
       coords = @position.coords
       cardinal = @position.cardinal_direction
@@ -46,6 +50,13 @@ module ToyRobot
 
     def rotate_cardinal(dir)
       @position.change_cardinal_direction(dir) if is_placed?
+    end
+
+    def is_valid_place?(x_coord, y_coord, cardinal)
+      valid_integers = Integer(x_coord) && Integer(y_coord) rescue false
+      cardinal = cardinal.to_sym if cardinal.is_a?(String)
+      cardinal = cardinal.downcase if cardinal.is_a?(Symbol)
+      valid_integers && CARDINALS.has_key?(cardinal)
     end
   end
 end
