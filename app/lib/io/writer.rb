@@ -1,17 +1,22 @@
 module ToyRobot
   class Writer
-    attr_reader :format, :path
+    attr_reader :path
 
-    def write_to_file(path)
+    def file(path)
       @path = path
+      self
     end
 
-    def output_format(out_format)
-      @format = out_format
+    def write(data, suffix = '')
+      if @path
+        File.open(path, 'a+') { |f| f.write("#{data}#{suffix}") }
+      else
+        print("#{data}#{suffix}") if data.is_a?(String)
+      end
     end
 
-    def write(data)
-      print("#{data} \n") if data.is_a?(String)
+    def writeln(data)
+      write(data, "\n")
     end
   end
 end
