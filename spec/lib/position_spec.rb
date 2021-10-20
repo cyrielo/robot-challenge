@@ -1,12 +1,14 @@
-require_relative '../../app/lib/position'
+require_relative '../../app/factory/toy_robot'
 
 
 RSpec.describe ToyRobot::Position do
+ 
   before(:example) do
     @x_coord = 0
     @y_coord = 0
     @cardinal = 'WEST'
-    @position = ToyRobot::Position.new(@x_coord, @y_coord, @cardinal)
+
+    @position = ToyRobot::Factory.create_position(@x_coord,  @y_coord, @cardinal)
   end
 
   context '#change_cardinal_direction' do

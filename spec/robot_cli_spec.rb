@@ -1,5 +1,5 @@
-require_relative '../bin/robot_cli'
+# require_relative '../bin/robot_cli'
 
-describe  do
+# describe  do
   
-end
+# end

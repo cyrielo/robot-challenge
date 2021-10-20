@@ -1,9 +1,9 @@
-require_relative '../../app/lib/table_top'
+require_relative '../../app/factory/toy_robot'
 
 RSpec.describe ToyRobot::TableTop do
 
   before(:example) do
-    @table_top = ToyRobot::TableTop.new
+    @table_top = ToyRobot::Factory.create_tabletop
   end
 
   context 'when instantiated' do
