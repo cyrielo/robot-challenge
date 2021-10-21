@@ -20,6 +20,8 @@ module ToyRobot
 
     def help_prompt
       "USAGE:\n"\
+      "--file [path] \t # use option to load commands from a file \n"\
+      "--output [path]\t # use option to write robot output to a file \n"\
         "PLACE 0,0 WEST \t # places the robot south west \n"\
         "MOVE \t\t # moves robot one step forward at current cardinal \n"\
         "LEFT \t\t # rotates robot 90 degrees left\n"\
