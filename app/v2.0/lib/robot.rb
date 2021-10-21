@@ -21,16 +21,18 @@ module ToyRobotV2
     end
 
     def move
-      super.move unless is_blocked?
+      pos = @position.advance_position
+      super unless is_blocked?(pos)
     end
 
     def place(x_coord, y_coord, cardinal)
-      super.place(x_coord, y_coord, cardinal) unless is_blocked?
+      pos = @position.class.new(x_coord, y_coord, cardinal)
+      super unless is_blocked?(pos)
     end
 
     private
-    def is_blocked?
-      @obstacle.is_obstructing?(position: @position)
+    def is_blocked?(position)
+      @obstacle.is_obstructing?(position: position)
     end
   end
 end

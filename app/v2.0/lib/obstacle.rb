@@ -14,8 +14,7 @@ module ToyRobotV2
     end
 
     def is_obstructing?(position: Position)
-      block_pos = position.advance_position
-      @blocked_positions.any? { |pos| pos == block_pos }
+      @blocked_positions.any? { |pos| pos == position }
     end
   end
 end
