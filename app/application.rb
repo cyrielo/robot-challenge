@@ -4,7 +4,7 @@ module ToyRobot
   class Application
     attr_accessor :command, :args, :toy_robot
 
-    VERSION = "ToyRobot v1.0".freeze
+    VERSION = 'ToyRobot v1.0'.freeze
 
     def initialize(robot: Robot)
       @toy_robot = robot
@@ -12,8 +12,12 @@ module ToyRobot
 
     def run(command)
       parse_command(command)
-      if is_valid_command?
-        output = @toy_robot.send(@command, *@args) rescue false
+      if valid_command?
+        output = begin
+          @toy_robot.send(@command, *@args)
+        rescue StandardError
+          false
+        end
       end
       output
     end
@@ -36,14 +40,16 @@ module ToyRobot
     end
 
     protected
+
     def parse_command(command)
       return {} unless command.is_a?(String)
+
       command = command.scan(/-?\w+/)
       @command = command.first.downcase if command.first
       @args = command[1...]
     end
 
-    def is_valid_command?
+    def valid_command?
       command = @command.upcase if @command.is_a?(String)
       VALID_COMMANDS.include?(command)
     end

@@ -10,22 +10,21 @@ module ToyRobot
     end
 
     def place(x_coord, y_coord, cardinal)
-      if is_valid_place?(x_coord, y_coord, cardinal)
+      if valid_place?(x_coord, y_coord, cardinal)
         x_coord = x_coord.to_i
         y_coord = y_coord.to_i
-        if can_place?(x_coord, y_coord)
-          @position = @position.class.new(x_coord, y_coord, cardinal)
-        end
+        @position = @position.class.new(x_coord, y_coord, cardinal) if can_place?(x_coord, y_coord)
       end
-      return
+      nil
     end
 
     def report
-      @position.to_s if is_placed?
+      @position.to_s if placed?
     end
 
     def move
-      return unless is_placed?
+      return unless placed?
+
       position = @position.advance_position
       place(position.x_coord, position.y_coord, position.cardinal_direction)
     end
@@ -39,25 +38,30 @@ module ToyRobot
     end
 
     protected
-    def is_placed?
+
+    def placed?
       coords = @position.coords
       cardinal = @position.cardinal_direction
       coords.empty? || cardinal.nil? ? false : true
     end
 
     def can_place?(x_coord, y_coord)
-      @table_top.is_within_bounds?(x_coord, y_coord)
+      @table_top.within_bounds?(x_coord, y_coord)
     end
 
     def rotate_cardinal(dir)
-      @position.change_cardinal_direction(dir) if is_placed?
+      @position.change_cardinal_direction(dir) if placed?
     end
 
-    def is_valid_place?(x_coord, y_coord, cardinal)
-      valid_integers = Integer(x_coord) && Integer(y_coord) rescue false
+    def valid_place?(x_coord, y_coord, cardinal)
+      valid_integers = begin
+        Integer(x_coord) && Integer(y_coord)
+      rescue StandardError
+        false
+      end
       cardinal = cardinal.to_sym if cardinal.is_a?(String)
       cardinal = cardinal.downcase if cardinal.respond_to?(:downcase)
-      valid_integers && CARDINALS.has_key?(cardinal)
+      valid_integers && CARDINALS.key?(cardinal)
     end
   end
 end

@@ -5,4 +5,3 @@ application = ToyRobot::Factory.create_application_v2
 cli_app = ToyRobot::Factory.create_cli(app: application)
 print application.help_prompt
 cli_app.start
-

@@ -6,6 +6,8 @@ module ToyRobot
     attr_reader :application, :options, :reader, :writer
 
     def initialize(app: Application, reader: Reader, writer: Writer)
+      raise IOError, 'Reader or Writer Streams not provided' if reader.nil? || writer.nil?
+
       @application = app
       @options = parse_options
       @reader = reader
@@ -14,30 +16,29 @@ module ToyRobot
     end
 
     def start
-      if @reader.nil? || @writer.nil?
-        raise IOError.new('Reader or Writer Streams not provided')
-      end
       begin
         @reader.readline(prompt) do |command|
           command = command.strip.downcase.chomp
           case command
           when 'exit'
-          break
+            break
           when 'help'
             @writer.writeln(@application.help_prompt)
-          else
-            response = @application.run(command)
-            @writer.writeln(response) if response
+          else handle_output(command)
           end
         end
-        rescue Interrupt
-        return
-        rescue
+      rescue Interrupt
+        exit
       end
     end
 
     def prompt
       "#{@application.version} >"
+    end
+
+    def handle_output(command)
+      response = @application.run(command)
+      @writer.writeln(response) if response
     end
 
     def use_options
@@ -46,11 +47,13 @@ module ToyRobot
     end
 
     private
+
     def parse_options
       return {} if ARGV.empty?
+
       options = ARGV.each_slice(2).filter { |i| i.length == 2 }.flatten
       options = Hash[*options].transform_keys { |k| k.gsub(/-/, '').to_sym }
-      options = options.filter { |op| permitted_options.has_key?(op) }
+      options.filter { |op| permitted_options.key?(op) }
     end
 
     def permitted_options
@@ -58,4 +61,3 @@ module ToyRobot
     end
   end
 end
-

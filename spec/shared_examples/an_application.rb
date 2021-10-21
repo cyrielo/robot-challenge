@@ -1,11 +1,10 @@
-RSpec.shared_examples "an Application" do
-
+RSpec.shared_examples 'an Application' do
   def valid_commands
-    commands = [ 'PLACE 0,0, EAST', 'place 1,3,west', 'pLace 2,4,noRtH']
+    commands = ['PLACE 0,0, EAST', 'place 1,3,west', 'pLace 2,4,noRtH']
     response = ['0,0 EAST', '1,3 WEST', '2,4 NORTH']
-    { commands:commands, response: response }
+    { commands: commands, response: response }
   end
-  specify "properties" do
+  specify 'properties' do
     should respond_to(:args)
     should respond_to(:command)
     should respond_to(:toy_robot)
@@ -35,4 +34,3 @@ RSpec.shared_examples "an Application" do
     expect(report).to eql(response.last)
   end
 end
-

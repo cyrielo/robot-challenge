@@ -1,7 +1,6 @@
 require_relative '../../app/factory/robot_factory'
 
 RSpec.describe ToyRobot::TableTop do
-
   let(:table_top) { ToyRobot::Factory.create_tabletop }
   subject { table_top }
 
@@ -19,10 +18,10 @@ RSpec.describe ToyRobot::TableTop do
     end
   end
 
-  context "#is_within_bounds?" do
+  context '#within_bounds?' do
     it 'should be able to identify its perimeters' do
-      is_within = subject.is_within_bounds?(0, 2)
-      not_within = subject.is_within_bounds?(1, 5)
+      is_within = subject.within_bounds?(0, 2)
+      not_within = subject.within_bounds?(1, 5)
       expect(is_within).to eql(true)
       expect(not_within).to eql(false)
     end

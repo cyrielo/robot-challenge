@@ -1,11 +1,10 @@
-RSpec.shared_examples "a Robot" do
-
-  specify "properties" do
+RSpec.shared_examples 'a Robot' do
+  specify 'properties' do
     should respond_to(:table_top)
     should respond_to(:position)
   end
 
-  specify "methods" do
+  specify 'methods' do
     should respond_to(:place).with(3).argument
     should respond_to(:report)
     should respond_to(:move)
@@ -32,7 +31,7 @@ RSpec.shared_examples "a Robot" do
       coords = [4, 2]
       cardinal = 'NORTH'
       subject.place(*coords, cardinal)
-      expect(subject.report).to eql( "#{coords.join(',')} #{cardinal}")
+      expect(subject.report).to eql("#{coords.join(',')} #{cardinal}")
     end
   end
 

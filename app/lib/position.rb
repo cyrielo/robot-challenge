@@ -44,6 +44,7 @@ module ToyRobot
 
     def coords
       return [] if @x_coord.nil? || @y_coord.nil?
+
       [@x_coord, @y_coord]
     end
 
@@ -69,10 +70,10 @@ module ToyRobot
       Position.new(x_coord, y_coord, @cardinal_direction)
     end
 
-    def ==(position)
-      return false unless position.is_a?(Position)
-      (position.x_coord == @x_coord && position.y_coord == @y_coord && position.cardinal_direction == @cardinal_direction)
+    def ==(other)
+      return false unless other.is_a?(Position)
+
+      (other.x_coord == @x_coord && other.y_coord == @y_coord && other.cardinal_direction == @cardinal_direction)
     end
   end
 end
-

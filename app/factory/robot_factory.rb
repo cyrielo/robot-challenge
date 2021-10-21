@@ -11,7 +11,6 @@ require_relative '../lib/cli'
 
 module ToyRobot
   class Factory
-
     def self.create_robot
       table_top = create_tabletop
       position = create_position

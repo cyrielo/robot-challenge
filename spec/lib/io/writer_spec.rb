@@ -1,12 +1,11 @@
 require_relative '../../../app/factory/robot_factory'
 RSpec.describe ToyRobot::Writer do
-
   let(:writer) { ToyRobot::Factory.create_writer }
   subject { writer }
 
   context 'behave like a file writer' do
     it 'should have path' do
-      expect(subject).to have_attributes(:path => nil)
+      expect(subject).to have_attributes(path: nil)
     end
 
     it 'should have write method' do
@@ -20,7 +19,7 @@ RSpec.describe ToyRobot::Writer do
 
   context '#file' do
     it 'should actually write to file' do
-      path = File.join(Dir.pwd,'spec/test_data/asdf.txt')
+      path = File.join(Dir.pwd, 'spec/test_data/asdf.txt')
       msg = 'qwertyuiop'
       writer = ToyRobot::Factory.create_writer
       writer = writer.file(path)
@@ -31,4 +30,3 @@ RSpec.describe ToyRobot::Writer do
     end
   end
 end
-

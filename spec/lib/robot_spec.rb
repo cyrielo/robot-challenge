@@ -2,9 +2,8 @@ require_relative '../../app/factory/robot_factory'
 require_relative '../shared_examples/a_robot'
 
 RSpec.describe ToyRobot::Robot do
-
   let(:robot) { ToyRobot::Factory.create_robot }
   subject { robot }
 
-  it_should_behave_like "a Robot"  
+  it_should_behave_like 'a Robot'
 end

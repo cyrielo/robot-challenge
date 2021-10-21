@@ -1,16 +1,13 @@
 require_relative '../../app/factory/robot_factory'
 
-
 RSpec.describe ToyRobot::Position do
-
   let(:x_coord) { 0 }
   let(:y_coord) { 0 }
   let(:cardinal) { 'WEST' }
 
-  let(:position) {ToyRobot::Factory.create_position(x_coord, y_coord, cardinal)}
+  let(:position) { ToyRobot::Factory.create_position(x_coord, y_coord, cardinal) }
 
   subject { position }
-
 
   context '#change_cardinal_direction' do
     it 'rotates the cardinal direction 90 left and right' do
@@ -30,8 +27,7 @@ RSpec.describe ToyRobot::Position do
 
   context '#to_s' do
     it 'should return a string announcing  X,Y and cardinal of the robot' do
-      expect(subject.to_s
-      ).to eql("#{position.coords.join(',')} #{cardinal}")
+      expect(subject.to_s).to eql("#{position.coords.join(',')} #{cardinal}")
     end
   end
 
@@ -59,4 +55,3 @@ RSpec.describe ToyRobot::Position do
     end
   end
 end
-

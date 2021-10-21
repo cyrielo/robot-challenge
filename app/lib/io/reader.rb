@@ -1,24 +1,27 @@
-require "readline"
+require 'readline'
 module ToyRobot
   class Reader
     attr_reader :lines
 
     def file(path)
-      @lines = File.readlines(path, chomp: true) rescue nil
+      @lines = begin
+        File.readlines(path, chomp: true)
+      rescue StandardError
+        nil
+      end
       self if @lines
     end
 
-    def readline(prompt = '', &command)
+    def readline(prompt = '')
       if @lines.nil?
-        while line = Readline.readline(prompt)
-          yield line.strip.chomp 
+        while (line = Readline.readline(prompt))
+          yield line.strip.chomp
         end
       else
-        @lines.each do |line|
-          yield line.strip.chomp
-        end        
+        @lines.each do |command|
+          yield command.strip.chomp
+        end
       end
     end
   end
 end
-

@@ -18,22 +18,23 @@ module ToyRobotV2
 
     def obstruct
       @obstacle.obstruct(position: @position, table_top: @table_top)
-      return
+      nil
     end
 
     def move
       pos = @position.advance_position
-      super unless is_blocked?(pos)
+      super unless blocked?(pos)
     end
 
     def place(x_coord, y_coord, cardinal)
       pos = @position.class.new(x_coord, y_coord, cardinal)
-      super unless is_blocked?(pos)
+      super unless blocked?(pos)
     end
 
     private
-    def is_blocked?(position)
-      @obstacle.is_obstructing?(position: position)
+
+    def blocked?(position)
+      @obstacle.obstructing?(position: position)
     end
   end
 end

@@ -1,12 +1,11 @@
 require_relative '../../../app/factory/robot_factory'
 RSpec.describe ToyRobot::Reader do
-
   let(:reader) { ToyRobot::Factory.create_reader }
   subject { reader }
 
   context 'behave like a file reader' do
     it 'should have lines' do
-      expect(subject).to have_attributes(:lines => nil)
+      expect(subject).to have_attributes(lines: nil)
     end
 
     it 'should have readline' do
@@ -23,4 +22,3 @@ RSpec.describe ToyRobot::Reader do
     end
   end
 end
-

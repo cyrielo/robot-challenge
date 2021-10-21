@@ -8,12 +8,10 @@ module ToyRobotV2
 
     def obstruct(position: Position, table_top: TableTop)
       block_pos = position.advance_position
-      if table_top.is_within_bounds?(block_pos.x_coord, block_pos.y_coord)
-        @blocked_positions << block_pos
-      end
+      @blocked_positions << block_pos if table_top.within_bounds?(block_pos.x_coord, block_pos.y_coord)
     end
 
-    def is_obstructing?(position: Position)
+    def obstructing?(position: Position)
       @blocked_positions.any? { |pos| pos == position }
     end
   end

@@ -1,12 +1,11 @@
 require_relative '../../app/factory/robot_factory'
 
 RSpec.describe ToyRobot::Cli do
- 
   let(:cli) { ToyRobot::Factory.create_cli }
   subject { cli }
 
   context 'when an isntance of cli app is created' do
-    #:application, :options, :reader, :writer
+    # :application, :options, :reader, :writer
     it 'should have an application' do
       expect(subject.application).to be_a_kind_of(ToyRobot::Application)
     end
@@ -17,7 +16,7 @@ RSpec.describe ToyRobot::Cli do
       expect(subject.writer).to be_a_kind_of(ToyRobot::Writer)
     end
     it 'should have empty options object' do
-      expect(subject).to have_attributes(:options => {})
+      expect(subject).to have_attributes(options: {})
     end
 
     it 'should have start' do

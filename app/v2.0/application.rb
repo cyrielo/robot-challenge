@@ -2,8 +2,7 @@ require_relative '../application'
 
 module ToyRobotV2
   class Application < ToyRobot::Application
-    
-    VERSION = "ToyRobot v2.0".freeze
+    VERSION = 'ToyRobot v2.0'.freeze
 
     def initialize(robot: Robot)
       super(robot: robot)

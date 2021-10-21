@@ -7,8 +7,8 @@ RSpec.describe ToyRobot::Robot do
 
   subject { obstacle }
 
-  specify "properties" do
-    expect(subject).to have_attributes(:blocked_positions => [])
+  specify 'properties' do
+    expect(subject).to have_attributes(blocked_positions: [])
   end
 
   context '#obstruct' do
@@ -18,11 +18,11 @@ RSpec.describe ToyRobot::Robot do
     end
   end
 
-  context '#is_obstructing?' do
+  context '#obstructing?' do
     it 'assert if a position is obstructed' do
       subject.obstruct(position: position, table_top: table_top)
       pos = position.advance_position
-      expect(subject.is_obstructing?(position: pos)).to be true
+      expect(subject.obstructing?(position: pos)).to be true
     end
   end
 end
