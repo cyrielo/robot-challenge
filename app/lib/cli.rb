@@ -50,7 +50,8 @@ module ToyRobot
     def parse_options
       return {} if ARGV.empty?
       options = ARGV.each_slice(2).filter { |i| i.length == 2 }.flatten
-      Hash[*options].filter { |op| permitted_options.has_key?(op) }
+      options = Hash[*options].transform_keys { |k| k.gsub(/-/, '').to_sym }
+      options = options.filter { |op| permitted_options.has_key?(op) }
     end
 
     def permitted_options

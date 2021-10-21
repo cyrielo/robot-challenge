@@ -17,6 +17,7 @@ module ToyRobot
           @position = @position.class.new(x_coord, y_coord, cardinal)
         end
       end
+      return
     end
 
     def report

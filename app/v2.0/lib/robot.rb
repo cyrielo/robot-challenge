@@ -18,6 +18,7 @@ module ToyRobotV2
 
     def obstruct
       @obstacle.obstruct(position: @position, table_top: @table_top)
+      return
     end
 
     def move
