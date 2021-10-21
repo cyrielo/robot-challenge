@@ -1,25 +1,35 @@
-require_relative '../../app/lib/io/writer'
+require_relative '../../../app/lib/io/writer'
 
-RSpec.describe ToyRobot::Reader do
+RSpec.describe ToyRobot::Writer do
 
-  context 'behave like a file reader' do
+  context 'behave like a file writer' do
     before(:example) do
-      @reader = ToyRobot::Reader.new
+      @writer = ToyRobot::Writer.new
     end
 
-    it 'should have lines' do
-      expect(@reader).to have_attributes(:lines)
+    it 'should have path' do
+      expect(@writer).to have_attributes(:path => nil)
     end
-    it 'should have readline' do
-      expect(reader).to respond_to(:readline).with(1..2).arguments
+
+    it 'should have write method' do
+      expect(@writer).to respond_to(:write).with(1..2).arguments
+    end
+
+    it 'should have writeln method' do
+      expect(@writer).to respond_to(:writeln).with(1).arguments
     end
   end
 
   context '#file' do
-    it 'should actually readlines' do
-      path = '/Users/cyrielo/projects/robot-challenge/spec/test_data/oneline.txt';
-      @reader = reader.file(path)
-      expect(reader.lines).to eql('oneliner')
+    it 'should actually write to file' do
+      path = File.join(Dir.pwd,'spec/test_data/asdf.txt')
+      msg = 'qwertyuiop'
+      writer = ToyRobot::Writer.new
+      writer = writer.file(path)
+      writer.write(msg)
+      lines = File.readlines(path, chomp: true).join('')
+      expect(lines).to eql(msg)
+      File.delete(path)
     end
   end
 end
