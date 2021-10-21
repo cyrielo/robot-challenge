@@ -3,7 +3,7 @@ require_relative 'io/writer'
 
 module ToyRobot
   class Cli
-    attr_reader :reader, :writer
+    attr_reader :application, :options, :reader, :writer
 
     def initialize(app: Application, reader: Reader, writer: Writer)
       @application = app
@@ -15,6 +15,9 @@ module ToyRobot
     end
 
     def start
+      if @reader.nil? || @writer.nil?
+        raise IOError.new('Reader or Writer Streams not provided')
+      end
       begin
         @reader.readline(prompt) do |command|
           command = command.strip.downcase.chomp
@@ -31,9 +34,6 @@ module ToyRobot
         rescue Interrupt
         return
         rescue
-        if @reader.nil? || @writer.nil?
-          raise IOError.new('Reader or Writer Streams not provided')
-        end
       end
     end
 
