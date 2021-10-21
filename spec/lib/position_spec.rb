@@ -1,4 +1,4 @@
-require_relative '../../app/factory/toy_robot'
+require_relative '../../app/factory/robot_factory'
 
 
 RSpec.describe ToyRobot::Position do
