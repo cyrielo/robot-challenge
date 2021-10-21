@@ -8,7 +8,7 @@ RSpec.describe ToyRobot::Robot do
   subject { obstacle }
 
   specify "properties" do
-    should respond_to(:blocked_positions)
+    expect(subject).to have_attributes(:blocked_positions => [])
   end
 
   context '#obstruct' do
