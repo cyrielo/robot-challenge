@@ -2,7 +2,7 @@ require_relative 'constants/application_constants'
 
 module ToyRobot
   class Application
-    attr_accessor :command, :args
+    attr_accessor :command, :args, :toy_robot
 
     VERSION = "ToyRobot v1.0".freeze
 
