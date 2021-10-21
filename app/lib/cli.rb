@@ -11,7 +11,6 @@ module ToyRobot
       @reader = reader
       @writer = writer
       use_options
-      start
     end
 
     def start

@@ -7,6 +7,7 @@ require_relative '../application'
 require_relative '../v2.0/application'
 require_relative '../lib/io/reader'
 require_relative '../lib/io/writer'
+require_relative '../lib/cli'
 
 module ToyRobot
   class Factory
@@ -52,6 +53,13 @@ module ToyRobot
 
     def self.create_reader
       ToyRobot::Reader.new
+    end
+
+    def self.create_cli(app: Application, reader: Reader, writer: Writer)
+      app = create_application unless app.is_a?(ToyRobot::Application)
+      reader = create_reader unless reader.instance_of?(ToyRobot::Reader)
+      writer = create_writer unless writer.instance_of?(ToyRobot::Writer)
+      ToyRobot::Cli.new(app: app, reader: reader, writer: writer)
     end
   end
 end
