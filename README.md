@@ -23,3 +23,31 @@ REPORT
 - LEFT and RIGHT will rotate the robot 90 degrees in the specified direction without changing the position of the robot.
 - REPORT will announce the X,Y and orientation of the robot.
 - A robot that is not on the table can choose to ignore the MOVE, LEFT, RIGHT and REPORT commands.
+
+## Installation
+
+Install gem dependencies with Bundle:
+
+    $ bundle install
+
+## Usage
+
+Run Cli application:
+
+    $ bin/robot_cli.rb
+
+    $ bin/robot_cli_v2.rb // run and upgraded version of the app
+
+Run app with options:
+
+    $ bin/robot_cli.rb --file [path] // reads file from specified path
+    $ bin/robot_cli.rb --output [path] // write result to specified path
+
+
+## Testing
+
+    $ bin/rspec --format doc
+
+  Check test coverage after running spec suite:
+
+    $ open coverage/index.html
