@@ -8,6 +8,7 @@ require_relative '../../app/application'
 require_relative '../../app/v2.0/application'
 require_relative '../../app/lib/io/reader'
 require_relative '../../app/lib/io/writer'
+require_relative '../../app/lib/cli'
 
 RSpec.describe ToyRobot::Factory do
   context 'should create application models' do
@@ -37,6 +38,9 @@ RSpec.describe ToyRobot::Factory do
     end
     it "should create_reader" do
       expect(ToyRobot::Factory.create_reader).to be_a(ToyRobot::Reader)
+    end
+    it "should create_cli" do
+      expect(ToyRobot::Factory.create_cli).to be_a(ToyRobot::Cli)
     end
   end
 end
