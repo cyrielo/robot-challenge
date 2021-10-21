@@ -5,7 +5,8 @@ require_relative '../lib/table_top'
 require_relative '../v2.0/lib/obstacle'
 require_relative '../application'
 require_relative '../v2.0/application'
-
+require_relative '../lib/io/reader'
+require_relative '../lib/io/writer'
 
 module ToyRobot
   class Factory
@@ -43,6 +44,14 @@ module ToyRobot
     def self.create_application_v2
       robot = create_robotv2
       ToyRobotV2::Application.new(robot: robot)
-    end    
+    end
+
+    def self.create_writer
+      ToyRobot::Writer.new
+    end
+
+    def self.create_reader
+      ToyRobot::Reader.new
+    end
   end
 end

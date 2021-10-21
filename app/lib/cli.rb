@@ -1,4 +1,3 @@
-require "readline"
 require_relative 'io/reader'
 require_relative 'io/writer'
 
@@ -6,36 +5,35 @@ module ToyRobot
   class Cli
     attr_reader :reader, :writer
 
-    def initialize(application: ToyRobot::Application)
-      @application = application
+    def initialize(app: Application, reader: Reader, writer: Writer)
+      @application = app
       @options = parse_options
+      @reader = reader
+      @writer = writer
+      use_options
       start
     end
 
     def start
-      use_options
-      handle_read
-    end
-
-    def handle_read
-      @reader = read_from_command_line if @reader.nil?
-
       begin
-        while command = @reader.readline(prompt)
+        @reader.readline(prompt) do |command|
           command = command.strip.downcase.chomp
           case command
           when 'exit'
           break
           when 'help'
-            handle_write(@application.help_prompt)
+            @writer.writeln(@application.help_prompt)
           else
             response = @application.run(command)
-            handle_write(response)
+            @writer.writeln(response) if response
           end
         end
         rescue Interrupt
-        exit
+        return
         rescue
+        if @reader.nil? || @writer.nil?
+          raise IOError.new('Reader or Writer Streams not provided')
+        end
       end
     end
 
@@ -43,50 +41,12 @@ module ToyRobot
       "#{@application.version} >"
     end
 
-    def handle_write(data)
-      output_format = @options[:format]
-      @writer = Writer.new if @writer.nil?
-      writer.output_format(output_format) if output_format
-
-      @writer.write(data) if data
-    end
-
     def use_options
-      @options.each do |option, _|
-        case option
-        when :file
-          read_from_file(@options[:file])
-        when :url
-          read_from_url(@options[:url])
-        when :output
-          write_to_file(@options[:output])
-        else
-          # type code here
-        end
-      end
+      @reader = @reader.file(@options[:file]) if @options.has_key?(:file)
+      @writer = @writer.file(@options[:output]) if @options.has_key?(:output)
     end
 
     private
-    def read_from_command_line
-      handle_write(@application.help_prompt)
-      Readline
-    end
-
-    def read_from_file(path)
-      reader = Reader.new
-      @reader = reader.read_from_file(path)
-    end
-
-    def read_from_url(path)
-      reader = Reader.new
-      @reader = reader.read_from_url(path)
-    end
-
-    def write_to_file(path)
-      writer = Writer.new
-      @writer = writer.write_to_file(path)
-    end
-
     def parse_options
       return {} if ARGV.empty?
       options = ARGV.each_slice(2).filter { |i| i.length == 2 }.flatten
@@ -94,7 +54,7 @@ module ToyRobot
     end
 
     def permitted_options
-      { file: true, output: true, url: true, format: true }.freeze
+      { file: true, output: true, format: true }.freeze
     end
   end
 end
