@@ -57,7 +57,7 @@ module ToyRobot
     end
 
     def permitted_options
-      { file: true, output: true, format: true }.freeze
+      { file: true, output: true }.freeze
     end
   end
 end
